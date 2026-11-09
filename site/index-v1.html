@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Criar é um Ato · Fabricyo Dias</title>
+<meta name="description" content="Palestras e oficinas que unem neurociência e prática para desenvolver o pensamento criativo, de estudantes a equipes. Com Fabricyo Dias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: página editorial em seções largas; faixa escura para o problema, faixa laranja para o contato */
+  :root{
+    --paper:#f4efe6;
+    --paper-2:#ebe4d7;
+    --card:#ffffff;
+    --ink:#16130f;
+    --ink-soft:#4a443b;
+    --mute:#8a8275;
+    --line:#d6cdbd;
+    --accent:#e2481c;
+    --on-accent:#ffffff;
+    --nav-bg:rgba(244,239,230,.92);
+    --band:#16130f;
+    --band-ink:#f4efe6;
+    --band-soft:#bdb5a7;
+    --band-line:#3a352d;
+    --up:#8fd18a;
+    --serif:"Fraunces", Georgia, serif;
+    --sans:"Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --max:1180px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#17140f; --paper-2:#211c16; --card:#1e1a14; --ink:#f1ebe0; --ink-soft:#bdb4a5; --mute:#8f8676;
+      --line:#3a342b; --accent:#f0643a; --nav-bg:rgba(23,20,15,.9); --band:#0d0b08; --band-line:#2e2922;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#17140f; --paper-2:#211c16; --card:#1e1a14; --ink:#f1ebe0; --ink-soft:#bdb4a5; --mute:#8f8676;
+    --line:#3a342b; --accent:#f0643a; --nav-bg:rgba(23,20,15,.9); --band:#0d0b08; --band-line:#2e2922;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img,svg{display:block;max-width:100%}
+  h1,h2,h3{text-wrap:balance}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding-left:max(24px, env(safe-area-inset-left, 0px));padding-right:max(24px, env(safe-area-inset-right, 0px))}
+
+  /* NAV */
+  header.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:var(--nav-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .brand{font-family:var(--serif);font-weight:800;font-size:22px;text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+  .brand span{color:var(--accent)}
+  .btn .short{display:none}
+  .nav ul{display:flex;gap:26px;list-style:none;align-items:center}
+  .nav ul a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-soft)}
+  .nav ul a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;transition:transform .15s ease, background .15s ease}
+  .btn:hover{background:var(--accent);color:var(--on-accent);transform:translateY(-1px)}
+  .nav ul a.btn.small{padding:10px 18px;font-size:14px;color:var(--paper)}
+  .nav ul a.btn.small:hover{color:var(--on-accent)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+
+  /* HERO */
+  .hero{padding-block:72px 0;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero-grid > *{min-width:0}
+  .eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:28px;height:2px;background:var(--accent);flex:none}
+  h1{font-family:var(--serif);font-weight:800;font-size:clamp(56px,8.5vw,118px);line-height:.92;letter-spacing:-.035em;margin:22px 0 26px}
+  h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+  .lede{font-size:21px;max-width:560px;color:var(--ink-soft)}
+  .lede strong{color:var(--ink);font-weight:600}
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .hero-art{aspect-ratio:1/1;width:100%}
+  .hero-art .dot{fill:var(--ink)}
+  .hero-art .faint{stroke:var(--line);stroke-width:1.5}
+  .hero-art .new{stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 2.2s .6s cubic-bezier(.6,.1,.2,1) forwards}
+  .hero-art .hot{fill:var(--accent);animation:pop .5s 2.4s ease both}
+  .hero-art text{font-family:var(--sans);font-size:13px;fill:var(--ink-soft);letter-spacing:.04em}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{from{transform:scale(.4);transform-origin:center;transform-box:fill-box}to{transform:scale(1);transform-origin:center;transform-box:fill-box}}
+  .formula{margin-top:14px;text-align:center;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-soft)}
+  .formula b{font-style:normal;color:var(--accent);font-weight:600}
+
+  /* NUMBERS */
+  .numbers{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px}
+  .numbers .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  .num{padding:34px 24px 30px;border-left:1px solid var(--line);min-width:0}
+  .num:first-child{border-left:none;padding-left:0}
+  .num b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .num p{font-size:15px;color:var(--ink-soft);margin-top:10px}
+  .num small{display:block;font-size:12px;color:var(--mute);margin-top:8px}
+
+  /* SECTIONS */
+  section{padding-block:110px;scroll-margin-top:68px}
+  .sec-head{display:grid;grid-template-columns:110px 1fr;gap:24px;margin-bottom:56px}
+  .sec-head > *{min-width:0}
+  .roman{font-family:var(--serif);font-size:20px;color:var(--accent);font-weight:600;padding-top:14px;border-top:2px solid var(--ink)}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(38px,5vw,64px);line-height:1;letter-spacing:-.025em}
+  h2 em{font-style:italic;font-weight:400}
+  .sec-head p{margin-top:20px;font-size:20px;color:var(--ink-soft);max-width:680px}
+
+  /* AULA */
+  .aula-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:40px;align-items:start}
+  .aula-grid > *{min-width:0}
+  .player{position:relative;display:block;border-radius:18px;overflow:hidden;border:1px solid var(--line);text-decoration:none;aspect-ratio:16/9;max-width:100%;background:var(--paper-2)}
+  .player img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+  .player:hover img{transform:scale(1.02)}
+  .player .play{position:absolute;left:20px;bottom:20px;display:inline-flex;align-items:center;gap:12px;background:var(--band);color:var(--band-ink);padding:12px 20px 12px 14px;border-radius:999px;font-weight:600;font-size:15px}
+  .player .play i{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+  .player .play i::after{content:"";border-left:10px solid var(--on-accent);border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+  .aula-info h3{font-family:var(--serif);font-size:clamp(28px,3vw,38px);line-height:1.08;font-weight:600;letter-spacing:-.02em}
+  .aula-info h3 em{font-style:italic;font-weight:400;color:var(--accent)}
+  .aula-info p{margin-top:16px;color:var(--ink-soft)}
+  .aula-meta{list-style:none;margin-top:22px;border-top:1px solid var(--line)}
+  .aula-meta li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .aula-meta span{color:var(--ink-soft)}
+  .aula-meta b{font-weight:600;text-align:right}
+  .aula-info .btn{margin-top:24px}
+  .frames{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+  .frames figure{min-width:0}
+  .frames img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+  .frames figcaption{margin-top:10px;font-size:14px;color:var(--ink-soft);line-height:1.4}
+  .frames figcaption b{display:block;color:var(--ink);font-weight:600;font-size:15px}
+
+  /* PROBLEM */
+  .problem{background:var(--band);color:var(--band-ink)}
+  .problem .roman{border-color:var(--band-ink)}
+  .problem .sec-head p{color:var(--band-soft)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--band-line);border:1px solid var(--band-line)}
+  .split > div{background:var(--band);padding:40px;min-width:0}
+  .split .tag{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .split .up{color:var(--up)}
+  .split .down{color:var(--accent)}
+  .split h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.15;margin:14px 0 12px}
+  .split p{color:var(--band-soft);font-size:17px}
+  .quote-big{margin-top:64px;font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1.12;letter-spacing:-.015em;max-width:900px}
+  .quote-big em{color:var(--accent)}
+  .cite{margin-top:16px;font-size:13px;color:var(--mute)}
+
+  /* OFICINA */
+  .oficina-top{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:start;margin-bottom:64px}
+  .oficina-top > *{min-width:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px}
+  .facts{list-style:none}
+  .facts li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px dashed var(--line);font-size:16px}
+  .facts li:last-child{border-bottom:none}
+  .facts span{color:var(--ink-soft)}
+  .facts b{font-weight:600;text-align:right}
+  .oficina-title{font-family:var(--serif);font-size:clamp(30px,3.4vw,42px);line-height:1.08;letter-spacing:-.02em;font-weight:600}
+  .oficina-title em{font-style:italic;font-weight:400;color:var(--accent)}
+  .oficina-desc{margin-top:20px;color:var(--ink-soft);font-size:19px}
+
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);border-top:2px solid var(--ink)}
+  .step{padding:26px 22px 30px 0;position:relative;min-width:0}
+  .step + .step{padding-left:22px;border-left:1px solid var(--line)}
+  .step .n{font-family:var(--serif);font-size:15px;color:var(--accent);font-weight:600}
+  .step h4{font-family:var(--serif);font-size:26px;font-weight:600;margin:6px 0 4px;letter-spacing:-.01em}
+  .step .q{font-size:14px;color:var(--ink-soft);font-style:italic;font-family:var(--serif)}
+  .step .act{margin-top:18px;font-size:14px;background:var(--paper-2);border-radius:10px;padding:12px 14px}
+  .step .act b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px}
+  .stuck{margin-top:22px;font-size:15px;color:var(--ink-soft)}
+  .stuck b{color:var(--accent)}
+
+  .takeaways{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .take{border-top:2px solid var(--ink);padding-top:18px}
+  .take h5{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:8px}
+  .take p{font-size:16px;color:var(--ink-soft)}
+
+  /* PALESTRAS */
+  .palestras{background:var(--paper-2)}
+  .talks{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .talk{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:32px;display:flex;flex-direction:column;min-width:0}
+  .talk .for{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+  .talk h3{font-family:var(--serif);font-size:28px;line-height:1.08;font-weight:600;margin:14px 0 14px;letter-spacing:-.015em}
+  .talk h3 em{font-weight:400}
+  .talk p{font-size:16px;color:var(--ink-soft);flex:1}
+  .talk .meta{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;display:flex;justify-content:space-between;gap:12px;color:var(--ink-soft)}
+
+  /* CIENCIA */
+  .myths{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:2px solid var(--ink)}
+  .myth{padding:32px 32px 32px 0;border-bottom:1px solid var(--line);min-width:0}
+  .myth:nth-child(even){padding-left:32px;padding-right:0;border-left:1px solid var(--line)}
+  .myth .m{font-family:var(--serif);font-size:22px;text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px;color:var(--ink-soft)}
+  .myth .t{font-family:var(--serif);font-size:26px;font-weight:600;margin-top:8px;line-height:1.2}
+  .myth small{display:block;margin-top:10px;font-size:13px;color:var(--mute)}
+
+  /* SOBRE */
+  .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+  .about > *{min-width:0}
+  .photo{aspect-ratio:4/5;width:100%;object-fit:cover;border-radius:18px;border:1px solid var(--line)}
+  .about h3{font-family:var(--serif);font-size:44px;font-weight:600;letter-spacing:-.02em;line-height:1}
+  .about .role{margin-top:10px;font-size:17px;color:var(--accent);font-weight:600}
+  .about p{margin-top:22px;color:var(--ink-soft)}
+  .trail{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .trail span{border:1px solid var(--ink);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
+  .trail span.n{background:var(--ink);color:var(--paper)}
+  .creds-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:36px}
+  .creds-grid > *{min-width:0}
+  .creds-grid h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  .creds{list-style:none}
+  .creds li{padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.4}
+  .creds li b{display:block;font-weight:600;color:var(--ink)}
+  .creds li span{color:var(--ink-soft);font-size:14px}
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+  .links a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;text-decoration:none}
+  .links a::after{content:"↗";color:var(--accent)}
+  .links a:hover{border-color:var(--ink)}
+
+  /* CONTATO */
+  .cta{background:var(--accent);color:var(--on-accent)}
+  .cta h2{font-size:clamp(44px,6.5vw,88px);line-height:.95;max-width:900px}
+  .cta p{margin-top:24px;font-size:20px;max-width:620px;opacity:.95}
+  .cta .row{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
+  .cta .btn{background:var(--band);color:var(--band-ink)}
+  .cta .btn:hover{background:var(--on-accent);color:var(--accent)}
+  .cta .btn.ghost{background:transparent;border-color:var(--on-accent);color:var(--on-accent)}
+  .cta .btn.ghost:hover{background:var(--on-accent);color:var(--accent)}
+  .cta .mail{margin-top:18px;font-size:15px;opacity:.9;user-select:all}
+
+  footer{padding-block:36px;font-size:14px;color:var(--ink-soft)}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  @media (prefers-reduced-motion:reduce){
+    .hero-art .new{animation:none;stroke-dashoffset:0}
+    .hero-art .hot{animation:none}
+    .player img{transition:none}
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:980px){
+    .hero-grid,.oficina-top,.about,.aula-grid{grid-template-columns:1fr}
+    .hero-art{max-width:420px;margin:0 auto}
+    .steps{grid-template-columns:1fr}
+    .step,.step + .step{padding:22px 0;border-left:none;border-bottom:1px solid var(--line)}
+    .talks,.takeaways{grid-template-columns:1fr}
+    .frames{grid-template-columns:repeat(2,1fr)}
+    .numbers .wrap{grid-template-columns:repeat(2,1fr)}
+    .num:nth-child(3){border-left:none;padding-left:0}
+    .num:nth-child(n+3){border-top:1px solid var(--line)}
+    .sec-head{grid-template-columns:1fr;gap:14px}
+    .roman{width:80px}
+    .photo{max-width:360px}
+  }
+  @media (max-width:760px){
+    body{font-size:17px}
+    .nav ul li:not(:last-child){display:none}
+    .btn .long{display:none}.btn .short{display:inline}
+    section{padding-block:76px}
+    .split,.myths,.creds-grid{grid-template-columns:1fr}
+    .myth,.myth:nth-child(even){padding:26px 0;border-left:none}
+    .split > div{padding:28px}
+    .hero{padding-top:44px}
+    .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  }
+  @media (max-width:440px){
+    .numbers .wrap{grid-template-columns:1fr}
+    .num,.num:nth-child(3){border-left:none;padding-left:0}
+    .num + .num{border-top:1px solid var(--line)}
+    .frames{grid-template-columns:1fr}
+    .player .play{left:12px;bottom:12px;font-size:14px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#topo">Criar é um Ato<span>.</span></a>
+    <ul>
+      <li><a href="#aula">Aula</a></li>
+      <li><a href="#oficina">Oficina</a></li>
+      <li><a href="#palestras">Palestras</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a class="btn small" href="#contato"><span class="long">Levar para minha instituição</span><span class="short">Contato</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Palestras e oficinas · Neurociência e prática</div>
+        <h1>Criar é<br>um <em>ato.</em></h1>
+        <p class="lede">Talvez você não seja pouco criativo. Talvez só esteja <strong>criando pouco</strong>. Palestras e oficinas que mostram como o cérebro cria e treinam, na prática, o caminho entre ter uma ideia e colocá-la no mundo.</p>
+        <div class="hero-ctas">
+          <a class="btn" href="#aula">Assistir a uma aula →</a>
+          <a class="btn ghost" href="#oficina">Conhecer a oficina</a>
+        </div>
+      </div>
+      <div>
+        <svg class="hero-art" viewBox="0 0 400 400" role="img" aria-label="Pontos de repertório ligados por uma nova linha, formando uma ideia">
+          <g class="faint">
+            <line x1="70" y1="90" x2="160" y2="60"/>
+            <line x1="160" y1="60" x2="250" y2="120"/>
+            <line x1="70" y1="90" x2="110" y2="200"/>
+            <line x1="110" y1="200" x2="60" y2="300"/>
+            <line x1="250" y1="120" x2="330" y2="80"/>
+            <line x1="330" y1="80" x2="345" y2="210"/>
+            <line x1="215" y1="222" x2="300" y2="320"/>
+            <line x1="60" y1="300" x2="170" y2="345"/>
+            <line x1="110" y1="200" x2="215" y2="222"/>
+          </g>
+          <line class="new" x1="60" y1="300" x2="345" y2="210"/>
+          <g>
+            <circle class="dot" cx="70" cy="90" r="7"/>
+            <circle class="dot" cx="160" cy="60" r="7"/>
+            <circle class="dot" cx="250" cy="120" r="7"/>
+            <circle class="dot" cx="330" cy="80" r="7"/>
+            <circle class="dot" cx="110" cy="200" r="7"/>
+            <circle class="dot" cx="215" cy="222" r="7"/>
+            <circle class="dot" cx="300" cy="320" r="7"/>
+            <circle class="dot" cx="170" cy="345" r="7"/>
+            <circle class="hot" cx="60" cy="300" r="11"/>
+            <circle class="hot" cx="345" cy="210" r="11"/>
+          </g>
+          <text x="18" y="330">jazz</text>
+          <text x="340" y="240">briefing</text>
+        </svg>
+        <p class="formula">repertório + uma linha nova = <b>ideia</b></p>
+      </div>
+    </div>
+
+    <div class="numbers">
+      <div class="wrap">
+        <div class="num"><b>1.011</b><p>cérebros analisados. Nenhum tinha um hemisfério dominante.</p><small>Nielsen et al., 2013</small></div>
+        <div class="num"><b>18 de 22</b><p>experimentos: grupos falando juntos geraram menos ideias que os mesmos membros sozinhos.</p><small>Diehl &amp; Stroebe, 1987</small></div>
+        <div class="num"><b>117</b><p>estudos: fazer uma pausa ajuda a resolver muitos problemas.</p><small>Sio &amp; Ormerod, 2009</small></div>
+        <div class="num"><b>94</b><p>estudos: definir quando e onde agir ajuda a cumprir a meta.</p><small>Gollwitzer &amp; Sheeran, 2006</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AULA -->
+  <section id="aula">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="roman">I</div>
+        <div>
+          <h2>Veja uma aula <em>completa.</em></h2>
+          <p>Antes de convidar, assista. A webclass “Criar é um Ato”, gravada para a SP Talks, mostra o tom, o ritmo e as dinâmicas que eu levo para a sala.</p>
+        </div>
+      </div>
+
+      <div class="aula-grid">
+        <a class="player" href="https://youtu.be/urotu8m_BFY" target="_blank" rel="noopener" aria-label="Assistir à webclass Criar é um Ato no YouTube">
+          <img src="img/capa-aula.jpg" alt="Capa da webclass Criar é um Ato, da SP Talks, com Fabricyo Dias">
+          <span class="play"><i></i>Assistir no YouTube</span>
+        </a>
+        <div class="aula-info">
+          <h3>Da ideia à apresentação: <em>como a criatividade transforma o que você comunica</em></h3>
+          <p>Mitos sobre criatividade, as redes cerebrais envolvidas, o papel do sono e da pausa, e o que muda com a IA. Com exercícios cronometrados que o público faz durante a aula.</p>
+          <ul class="aula-meta">
+            <li><span>Formato</span><b>Webclass ao vivo</b></li>
+            <li><span>Realização</span><b>SP Talks</b></li>
+            <li><span>Duração</span><b>cerca de 70 min</b></li>
+          </ul>
+          <a class="btn" href="https://youtu.be/urotu8m_BFY" target="_blank" rel="noopener">Abrir no YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="frames">
+        <figure>
+          <img src="img/aula-1.jpg" alt="Slide: Criatividade é dom ou habilidade?" loading="lazy">
+          <figcaption><b>Dom ou habilidade?</b>A aula abre desmontando o mito do talento.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aula-2.jpg" alt="Slide da atividade 3B relâmpago, com cronômetro de 3 minutos" loading="lazy">
+          <figcaption><b>3B relâmpago</b>Exercício de 3 minutos: dobrar, quebrar e misturar um objeto.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aula-3.jpg" alt="Slide: Primeiro expanda, depois julgue" loading="lazy">
+          <figcaption><b>Expandir, depois julgar</b>Pensamento divergente e convergente, um de cada vez.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aula-4.jpg" alt="Slide: Dormir também é criar" loading="lazy">
+          <figcaption><b>Dormir também é criar</b>Sono e criatividade, tema da minha pesquisa em neurociência.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problem">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="roman">II</div>
+        <div>
+          <h2>A IA tem o repertório de todo mundo.<br><em>A sua conexão, só você tem.</em></h2>
+          <p>Ferramentas de IA ajudam a ter ideias mais rápido. Mas, quando todo mundo usa as mesmas ferramentas do mesmo jeito, as ideias começam a se parecer.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div>
+          <div class="tag up">▲ Cada texto</div>
+          <h3>Contos escritos com ideias de IA foram avaliados como mais criativos.</h3>
+          <p>O ganho foi maior justamente para quem ia pior sozinho.</p>
+        </div>
+        <div>
+          <div class="tag down">▼ O conjunto</div>
+          <h3>Os contos feitos com IA ficaram mais parecidos entre si.</h3>
+          <p>A criatividade individual subiu e a diversidade coletiva caiu.</p>
+        </div>
+      </div>
+      <p class="cite">Doshi &amp; Hauser, 2024 · Science Advances</p>
+      <p class="quote-big">Saber gerar, conectar e escolher ideias passou a ser <em>a habilidade que diferencia</em> um profissional, e não um talento reservado a poucos.</p>
+    </div>
+  </section>
+
+  <!-- OFICINA -->
+  <section id="oficina">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="roman">III</div>
+        <div>
+          <h2>A oficina</h2>
+          <p>Uma experiência prática para estudantes de comunicação, design e áreas criativas. Pouca teoria solta: cada conceito vira um exercício.</p>
+        </div>
+      </div>
+
+      <div class="oficina-top">
+        <div>
+          <h3 class="oficina-title">Criatividade na era da IA: <em>como ter ideias que a máquina não tem</em></h3>
+          <p class="oficina-desc">Os participantes entendem o que acontece no cérebro quando criamos e passam pelas cinco etapas do processo criativo, trabalhando em um problema real. Eles saem com ideias desenvolvidas, um método replicável e um plano de ação.</p>
+        </div>
+        <div class="card">
+          <ul class="facts">
+            <li><span>Duração</span><b>2h30 a 3h</b></li>
+            <li><span>Formato</span><b>Presencial ou online</b></li>
+            <li><span>Participantes</span><b>Até 40 pessoas</b></li>
+            <li><span>Para</span><b>Graduação, semanas acadêmicas e extensão</b></li>
+            <li><span>Material</span><b>Papel, post-its e canetas</b></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="n">I</div>
+          <h4>Repertório</h4>
+          <div class="q">o que você acumula</div>
+          <div class="act"><b>Atividade</b>Mapa de repertório: seu hobby como modelo para o seu trabalho.</div>
+        </div>
+        <div class="step">
+          <div class="n">II</div>
+          <h4>Conexão</h4>
+          <div class="q">o que você relaciona</div>
+          <div class="act"><b>Atividade</b>3B relâmpago: dobrar, quebrar e misturar um objeto da sala.</div>
+        </div>
+        <div class="step">
+          <div class="n">III</div>
+          <h4>Exploração</h4>
+          <div class="q">o que você testa</div>
+          <div class="act"><b>Atividade</b>Brainwriting e restrição criativa: quantidade antes de qualidade.</div>
+        </div>
+        <div class="step">
+          <div class="n">IV</div>
+          <h4>Seleção</h4>
+          <div class="q">o que você escolhe</div>
+          <div class="act"><b>Atividade</b>Incubação guiada e critérios para escolher sem matar a ideia nova.</div>
+        </div>
+        <div class="step">
+          <div class="n">V</div>
+          <h4>Execução</h4>
+          <div class="q">o que você entrega</div>
+          <div class="act"><b>Atividade</b>Protótipos em paralelo e um plano “se… então” para a semana.</div>
+        </div>
+      </div>
+      <p class="stuck">A maioria das pessoas trava <b>entre explorar e executar</b>. A oficina foi desenhada para atravessar essa etapa.</p>
+
+      <div class="takeaways">
+        <div class="take"><h5>Um método</h5><p>Cinco etapas que podem ser repetidas em qualquer briefing, projeto ou trabalho acadêmico.</p></div>
+        <div class="take"><h5>Ideias reais</h5><p>Alternativas desenvolvidas para um problema concreto, e não só anotações sobre criatividade.</p></div>
+        <div class="take"><h5>Menos mitos</h5><p>O que a ciência sabe sobre criatividade, sem lado direito do cérebro e sem receita mágica.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALESTRAS -->
+  <section id="palestras" class="palestras">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="roman">IV</div>
+        <div>
+          <h2>Palestras</h2>
+          <p>Formatos mais curtos, com dinâmicas para o público participar. Cada palestra é ajustada ao público e ao contexto do evento.</p>
+        </div>
+      </div>
+      <div class="talks">
+        <article class="talk">
+          <div class="for">Faculdades e eventos</div>
+          <h3>Criar é um Ato: <em>como o cérebro cria?</em></h3>
+          <p>Da floresta que não mudou em um milhão de anos às três redes cerebrais da criatividade. Uma palestra para desmontar mitos e mostrar que criatividade é uma habilidade que pode ser treinada.</p>
+          <div class="meta"><span>60 a 90 min</span><span>Com dinâmicas</span></div>
+        </article>
+        <article class="talk">
+          <div class="for">Comunicação e marketing</div>
+          <h3>Criatividade na era da IA: <em>a conexão que só você tem</em></h3>
+          <p>O que muda quando todo mundo tem acesso às mesmas ferramentas, e como construir repertório e processo para criar ideias que se diferenciam.</p>
+          <div class="meta"><span>60 min</span><span>Com dinâmicas</span></div>
+        </article>
+        <article class="talk">
+          <div class="for">Educadores</div>
+          <h3>Criatividade em sala de aula: <em>o que a neurociência sugere</em></h3>
+          <p>Como estimular o pensamento criativo e a resolução de problemas nos alunos, com base em neurociência aplicada à educação.</p>
+          <div class="meta"><span>60 a 90 min</span><span>Formação docente</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIENCIA -->
+  <section id="ciencia">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="roman">V</div>
+        <div>
+          <h2>Baseado em <em>evidência</em>, não em receita.</h2>
+          <p>Cada afirmação vem acompanhada do estudo que a sustenta, e também dos seus limites. A neurociência explica processos; ela não promete ideias geniais.</p>
+        </div>
+      </div>
+      <div class="myths">
+        <div class="myth">
+          <div class="m">Criatividade é dom.</div>
+          <div class="t">É um processo que todo cérebro executa e que pode ser treinado.</div>
+        </div>
+        <div class="myth">
+          <div class="m">Criativo usa o lado direito do cérebro.</div>
+          <div class="t">Uma generalização errada de uma meia-verdade. Criar recruta redes do cérebro inteiro.</div>
+          <small>Nielsen et al., 2013 · Dietrich &amp; Kanso, 2010</small>
+        </div>
+        <div class="myth">
+          <div class="m">A primeira ideia é a melhor.</div>
+          <div class="t">As primeiras ideias costumam ser as óbvias. As mais originais vêm depois.</div>
+          <small>Lucas &amp; Nordgren, 2015 · Beaty &amp; Silvia, 2012</small>
+        </div>
+        <div class="myth">
+          <div class="m">Brainstorming em grupo é o melhor jeito.</div>
+          <div class="t">Escrever antes de falar distribui a participação e gera mais ideias.</div>
+          <small>Diehl &amp; Stroebe, 1987</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" style="padding-top:0">
+    <div class="wrap about">
+      <img class="photo" src="img/fabricyo.jpg" alt="Retrato de Fabricyo Dias">
+      <div>
+        <div class="eyebrow">Quem conduz</div>
+        <h3 style="margin-top:18px">Fabricyo Dias</h3>
+        <div class="role">Professor e comunicador de ciência · criatividade, cérebro e comportamento</div>
+        <p>Minha trajetória foi feita de conexões: audiovisual, fotografia, marketing, tecnologia, design e conteúdo, até chegar à neurociência. Cada área virou repertório, e foi nos cruzamentos entre elas que as melhores ideias apareceram.</p>
+        <p>Hoje lidero conteúdo e comunicação como Analista de Marketing Sênior e uso essa experiência de quem precisa colocar ideias no mundo, junto com a pesquisa sobre como o cérebro cria, para ajudar estudantes, educadores e equipes a criar melhor.</p>
+        <div class="trail">
+          <span>Audiovisual</span><span>Fotografia</span><span>Marketing</span><span>Tecnologia</span><span>Design</span><span class="n">Neurociência</span>
+        </div>
+
+        <div class="creds-grid">
+          <div>
+            <h4>Formação</h4>
+            <ul class="creds">
+              <li><b>Pós-graduação em Neurociências e Comportamento</b><span>PUCRS · 2022</span></li>
+              <li><b>Pós-graduação em Neurociências Aplicadas à Educação</b><span>PUCRS · 2024</span></li>
+              <li><b>MBA em Comunicação e Marketing</b><span>Universidade Cruzeiro do Sul · conclusão em dez/2026</span></li>
+              <li><b>Aluno especial no Mestrado em Inovação Tecnológica</b><span>Unifesp · disciplina de desenvolvimento de apps, com um app educacional</span></li>
+              <li><b>Bacharelado em Produção Audiovisual</b><span>Faculdade Méliès · 2021</span></li>
+              <li><b>Técnico em Comunicação Visual</b><span>SENAI Theobaldo de Nigris · 2020</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Em sala e no palco</h4>
+            <ul class="creds">
+              <li><b>Webclass “Criar é um Ato”</b><span>SP Talks · 2026</span></li>
+              <li><b>Palestra “Criar é um Ato”</b><span>FAPCOM</span></li>
+              <li><b>Instrutor de Marketing e Design</b><span>Infinity School · 2026</span></li>
+              <li><b>Pesquisa sobre sono e criatividade</b><span>Trabalho de conclusão em Neurociências e Comportamento</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://www.linkedin.com/in/fabricyo-dias-1706b5293/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://soulframefotografia.github.io/Portfolio/producao" target="_blank" rel="noopener">Portfólio audiovisual</a>
+          <a href="https://soulframefotografia.github.io/Portfolio" target="_blank" rel="noopener">Portfólio de fotografia</a>
+          <a href="https://youtu.be/urotu8m_BFY" target="_blank" rel="noopener">Aula no YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="cta">
+    <div class="wrap">
+      <h2>Vamos levar isso para a sua instituição?</h2>
+      <p>Conte o público, a data aproximada e o formato que você imagina. Eu respondo com uma proposta adaptada.</p>
+      <div class="row">
+        <a class="btn" href="mailto:contato.fabricyodias@gmail.com?subject=Oficina%20Criar%20%C3%A9%20um%20Ato">Enviar e-mail</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/fabricyo-dias-1706b5293/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://instagram.com/diasfabricyo" target="_blank" rel="noopener">@diasfabricyo</a>
+      </div>
+      <p class="mail">contato.fabricyodias@gmail.com</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Criar é um Ato · Fabricyo Dias</span>
+    <span>Criar é provocar conexões.</span>
+  </div>
+</footer>
+
+</body>
+</html>
